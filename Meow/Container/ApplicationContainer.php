@@ -5,7 +5,7 @@ namespace Meow\Container;
 class ApplicationContainer
 {
     /**
-     * @var array
+     * @var \ReflectionClass[]|array
      */
     protected array $instances = [];
 
@@ -50,7 +50,7 @@ class ApplicationContainer
      * @return object
      * @throws \ReflectionException
      */
-    public function resolve(?string $object = null, array $parameters =[]) : object
+    public function resolve(?string $object = null, array $parameters = []) : object
     {
         if ($object instanceof \Closure) {
             return $object($this, $parameters);
