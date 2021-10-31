@@ -4,9 +4,10 @@ namespace Meow;
 
 use Meow\Attributes\DefaultRoute;
 use Meow\Attributes\Route;
+use Meow\Container\ApplicationContainer;
 use Meow\Controllers\AppController;
 
-class Application
+class Application extends ApplicationContainer
 {
     protected array $applicationConfig;
 
@@ -20,8 +21,6 @@ class Application
             $this->registerRoutes();
         } catch (\ReflectionException $e) {
         }
-
-        var_dump($this->routes);
     }
 
     protected function configure()
@@ -39,13 +38,15 @@ class Application
         $controllers = $this->applicationConfig['Controllers'];
 
         foreach ($controllers as $controller) {
+            // check if class can be instantiated
             $reflectionClass = new \ReflectionClass($controller);
-
             if (!$reflectionClass->isInstantiable()) {
                 continue;
             }
 
-            $reflectionClass->newInstance();
+            // create new instance and resolve dependencies
+            $instancedController = $this->resolve($controller);
+            $reflectionClass = new \ReflectionClass($instancedController);
 
             //get controller route
             $controllerRouteAttribute = $reflectionClass->getAttributes(Route::class);
@@ -85,14 +86,18 @@ class Application
         $this->routes = $routes;
     }
 
+    /**
+     * @param string $routeName
+     * @param array $request
+     * @return string
+     * @throws \ReflectionException
+     */
     public function callController(string $routeName, array $request) : string
     {
         $calledRoute = $this->routes[$routeName];
-
-        $controller = new $calledRoute['Controller'];
         $methodName = $calledRoute['Method'];
 
-        $reflactionClass = new \ReflectionClass($controller);
+        $controller = $this->resolve($calledRoute['Controller']);
 
         return $controller->$methodName($request['name']);
     }
