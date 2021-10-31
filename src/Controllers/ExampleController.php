@@ -2,9 +2,9 @@
 
 namespace May\AttributesTest\Controllers;
 
-use May\AttributesTest\AppController;
 use May\AttributesTest\Attributes\AllowToAttribute;
-use May\AttributesTest\Attributes\Route;
+use Meow\Attributes\Route;
+use Meow\Controllers\AppController;
 
 #[Route('/example')]
 class ExampleController extends AppController

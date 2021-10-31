@@ -3,9 +3,10 @@
 namespace May\AttributesTest;
 
 use May\AttributesTest\Attributes\AllowToAttribute;
-use May\AttributesTest\Attributes\DefaultRoute;
 use May\AttributesTest\Attributes\NameAttribute;
-use May\AttributesTest\Attributes\Route;
+use Meow\Attributes\DefaultRoute;
+use Meow\Attributes\Route;
+use Meow\Controllers\AppController;
 
 #[Route('/main')]
 class MainController extends AppController

@@ -1,11 +1,9 @@
 <?php
 
-require 'vendor/autoload.php';
-require 'config/app.php';
+require '../vendor/autoload.php';
+require '../config/app.php';
 
-$app = new \May\AttributesTest\App();
-
-$app->registerRoutes(\May\AttributesTest\MainController::class);
+$app = new \Meow\Application();
 
 //echo phpinfo();
 
@@ -15,12 +13,9 @@ try {
     } else {
         $request_uri = $_SERVER['PATH_INFO'];
     }
-    $result = $app->callController(
-        $request_uri,
-        'administrators',
-        [
-            'name' => 'May'
-        ]);
+    $result = $app->callController($request_uri, [
+        'name' => 'May'
+    ]);
 
     var_dump($result);
 } catch (\May\AttributesTest\Exceptions\NotAllowedGroupException $exception) {
