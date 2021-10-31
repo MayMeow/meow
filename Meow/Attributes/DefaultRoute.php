@@ -1,6 +1,7 @@
 <?php
 
-namespace May\AttributesTest\Attributes;
+namespace Meow\Attributes;
+
 #[\Attribute]
 class DefaultRoute
 {

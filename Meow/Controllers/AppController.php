@@ -1,6 +1,6 @@
 <?php
 
-namespace May\AttributesTest;
+namespace Meow\Controllers;
 
 class AppController
 {

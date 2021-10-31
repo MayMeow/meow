@@ -2,7 +2,8 @@
     "name": "may/attributes-test",
     "autoload": {
         "psr-4": {
-            "May\\AttributesTest\\": "src/"
+            "May\\AttributesTest\\": "src/",
+            "Meow\\": "Meow/"
         }
     },
     "authors": [
