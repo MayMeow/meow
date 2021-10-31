@@ -1,7 +1,7 @@
 <?php
 
 require '../vendor/autoload.php';
-require '../config/app.php';
+require '../config/paths.php';
 
 $app = new \Meow\Application();
 

@@ -16,6 +16,7 @@ class Application extends ApplicationContainer
     public function __construct()
     {
         $this->configure();
+        $this->registerServices();
 
         try {
             $this->registerRoutes();
@@ -25,7 +26,7 @@ class Application extends ApplicationContainer
 
     protected function configure()
     {
-        $this->applicationConfig = include (CONFIG . 'controllers.php');
+        $this->applicationConfig = include(CONFIG . 'application.php');
     }
 
     /**
@@ -100,5 +101,15 @@ class Application extends ApplicationContainer
         $controller = $this->resolve($calledRoute['Controller']);
 
         return $controller->$methodName($request['name']);
+    }
+
+    protected function registerServices() : void
+    {
+        $services = $this->applicationConfig['Services'];
+
+        foreach ($services as $k => $v)
+        {
+            $this->set($k, $v);
+        }
     }
 }
