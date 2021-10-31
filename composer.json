@@ -1,0 +1,17 @@
+{
+    "name": "may/attributes-test",
+    "autoload": {
+        "psr-4": {
+            "May\\AttributesTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "May",
+            "email": "amy@themaymeow.com"
+        }
+    ],
+    "require": {
+        "php": "8.*"
+    }
+}

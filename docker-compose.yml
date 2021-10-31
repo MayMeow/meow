@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  dev-container:
+    build:
+      args:
+        user: vscode
+        uid: 1000
+      context: ./
+      dockerfile: docker/devcontainer/Dockerfile
+    working_dir: /app
+    command: "php -S 0.0.0.0:7777"
+    ports:
+      - "7777:7777"
+    volumes: 
+      - "./:/app"
