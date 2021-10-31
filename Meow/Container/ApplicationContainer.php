@@ -11,6 +11,7 @@ class ApplicationContainer
 
     /**
      * Add service to container
+     * define those services in 'Services' array in application configuration
      *
      * @param string $interface
      * @param string|null $object
@@ -25,7 +26,7 @@ class ApplicationContainer
     }
 
     /**
-     * Get Service from container
+     * This will resolve service which was previous set with set function
      *
      * @param string $interface
      * @param array $parameters
@@ -42,6 +43,8 @@ class ApplicationContainer
     }
 
     /**
+     * Returns new instance of class with resolved dependencies
+     *
      * @param string|null $object
      * @param array $parameters
      * @return object
@@ -90,10 +93,10 @@ class ApplicationContainer
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();
                 } else {
-                    throw new \Exception("Can not resolve class dependency {$parameter->name}");
+                    throw new \Exception("Can not resolve class dependency {$parameter->getName()}");
                 }
             } else {
-                $dependencies[] = $this->get($dependency->name);
+                $dependencies[] = $this->get($dependency->getName());
             }
         }
 

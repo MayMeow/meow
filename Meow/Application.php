@@ -24,12 +24,20 @@ class Application extends ApplicationContainer
         }
     }
 
+    /**
+     * Read Application configuration file
+     */
     protected function configure()
     {
         $this->applicationConfig = include(CONFIG . 'application.php');
     }
 
     /**
+     * Register Routes from registered controllers from application config file
+     * Use attributes to define routes
+     *
+     * @see Route::getRouteName()
+     * @see DefaultRoute
      * @throws \ReflectionException
      */
     protected function registerRoutes() : void
@@ -88,6 +96,8 @@ class Application extends ApplicationContainer
     }
 
     /**
+     * Calling controller based on route
+     *
      * @param string $routeName
      * @param array $request
      * @return string
@@ -98,11 +108,16 @@ class Application extends ApplicationContainer
         $calledRoute = $this->routes[$routeName];
         $methodName = $calledRoute['Method'];
 
+        // Instead of calling new instance from reflection class call Container's resolve
+        // This one will return new instance of controller but with resolved dependencies
         $controller = $this->resolve($calledRoute['Controller']);
 
         return $controller->$methodName($request['name']);
     }
 
+    /**
+     * Register application services from configuration file
+     */
     protected function registerServices() : void
     {
         $services = $this->applicationConfig['Services'];

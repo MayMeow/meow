@@ -5,6 +5,8 @@ namespace May\AttributesTest;
 use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Attributes\NameAttribute;
 use May\AttributesTest\Models\User;
+use May\AttributesTest\Repositories\UsersRepository;
+use May\AttributesTest\Services\ExampleServiceInterface;
 use Meow\Attributes\DefaultRoute;
 use Meow\Attributes\Route;
 use Meow\Controllers\AppController;
@@ -12,11 +14,14 @@ use Meow\Controllers\AppController;
 #[Route('/main')]
 class MainController extends AppController
 {
-    protected User $user;
+    protected UsersRepository $repository;
 
-    public function __construct(User $user)
+    protected ExampleServiceInterface $exampleService;
+
+    public function __construct(UsersRepository $repository, ExampleServiceInterface $exampleService)
     {
-        $this->user = $user;
+        $this->repository = $repository;
+        $this->exampleService = $exampleService;
     }
 
     #[NameAttribute("Emma")]
@@ -26,8 +31,8 @@ class MainController extends AppController
     #[DefaultRoute]
     public function sayHello(string $name) : string
     {
-        $namz = $this->user->getName($name);
-        return "Hello $namz";
+        $user = $this->repository->getUser($name)->getName();
+        return "Hello $user";
     }
 
     #[Route("/good-bye")]
