@@ -14,7 +14,7 @@ try {
         $request_uri = $_SERVER['PATH_INFO'];
     }
     $result = $app->callController($request_uri, [
-        'name' => 'May'
+        'name' => 1
     ]);
 
     var_dump($result);

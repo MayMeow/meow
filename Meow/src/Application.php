@@ -6,6 +6,7 @@ use Meow\Attributes\DefaultRoute;
 use Meow\Attributes\Route;
 use Meow\Container\ApplicationContainer;
 use Meow\Controllers\AppController;
+use Meow\Tools\Configuration;
 
 class Application extends ApplicationContainer
 {
@@ -29,7 +30,7 @@ class Application extends ApplicationContainer
      */
     protected function configure()
     {
-        $this->applicationConfig = include(CONFIG . 'application.php');
+        // $this->applicationConfig = include(CONFIG . 'application.php');
     }
 
     /**
@@ -44,7 +45,7 @@ class Application extends ApplicationContainer
     {
         $routes = [];
 
-        $controllers = $this->applicationConfig['Controllers'];
+        $controllers = Configuration::read('Controllers');
 
         foreach ($controllers as $controller) {
             // check if class can be instantiated
@@ -120,7 +121,7 @@ class Application extends ApplicationContainer
      */
     protected function registerServices() : void
     {
-        $services = $this->applicationConfig['Services'];
+        $services = Configuration::read('Services');
 
         foreach ($services as $k => $v)
         {

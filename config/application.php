@@ -14,6 +14,22 @@ return [
      */
     'Services' =>
     [
+        /**
+         * Application services
+         */
+        \Meow\Tools\DatabaseServiceProviderInterface::class => \Meow\Tools\DatabaseServiceProvider::class,
+        /**
+         * Other services
+         */
         \May\AttributesTest\Services\ExampleServiceInterface::class => \May\AttributesTest\Services\ExampleService::class
+    ],
+
+    /**
+     * Database
+     */
+    'Database' => [
+        'dsn' => 'sqlite:/app/app.sqlite',
+        'user' => 'user',
+        'password' => 'pass'
     ]
 ];

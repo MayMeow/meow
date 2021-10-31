@@ -29,9 +29,9 @@ class MainController extends AppController
     #[AllowToAttribute('users')]
     #[Route('/hello')]
     #[DefaultRoute]
-    public function sayHello(string $name) : string
+    public function sayHello(int $id) : string
     {
-        $user = $this->repository->getUser($name)->getName();
+        $user = $this->repository->getUser($id)->getName();
         return "Hello $user";
     }
 
