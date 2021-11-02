@@ -5,14 +5,11 @@ namespace Meow\Attributes;
 class Router
 {
     /** @var array<Route> $routes */
-    protected array $routes;
+    protected array $routes = [];
 
-    /**
-     * @param array<Route> $routes
-     */
-    public function __construct(array $routes)
+    public function addRoute(Route $route)
     {
-        $this->routes = $routes;
+        array_push($this->routes, $route);
     }
 
     /**

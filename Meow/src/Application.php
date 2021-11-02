@@ -13,13 +13,15 @@ class Application extends ApplicationContainer
 {
     protected array $applicationConfig;
 
-    /** @var array<Route>|array $routes */
-    protected array $routes;
+    /** @var Router $router */
+    protected Router $router;
 
     public function __construct()
     {
         $this->configure();
         $this->registerServices();
+
+        $this->router = new Router();
 
         try {
             $this->registerRoutes();
@@ -45,7 +47,7 @@ class Application extends ApplicationContainer
      */
     protected function registerRoutes() : void
     {
-        $routes = [];
+        //$routes = [];
 
         $controllers = Configuration::read('Controllers');
 
@@ -81,7 +83,7 @@ class Application extends ApplicationContainer
                         $methodRoute->setController($controller);
                         $methodRoute->setMethod($method->getName());
 
-                        $routes[$controllerRouteName . $methodRouteName] = $methodRoute;
+                        $this->router->addRoute($methodRoute);
                     }
 
                     //Check for default route
@@ -90,13 +92,14 @@ class Application extends ApplicationContainer
                         $route = new Route('/');
                         $route->setMethod($method->getName());
                         $route->setController($controller);
-                        $routes['/'] = $route;
+
+                        $this->router->addRoute($route);
                     }
                 }
             }
         }
 
-        $this->routes = $routes;
+        //$this->routes = $routes;
     }
 
     /**
@@ -106,12 +109,11 @@ class Application extends ApplicationContainer
      * @param array $request
      * @return string
      * @throws \ReflectionException
+     * @throws \Exception
      */
     public function callController(string $routeName, array $request) : string
     {
-        $router = new Router($this->routes);
-
-        $calledRoute = $router->matchFromUri($routeName);
+        $calledRoute = $this->router->matchFromUri($routeName);
         $methodName = $calledRoute->getMethod();
 
         // Instead of calling new instance from reflection class call Container's resolve
