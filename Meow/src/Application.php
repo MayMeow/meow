@@ -4,6 +4,7 @@ namespace Meow;
 
 use Meow\Attributes\DefaultRoute;
 use Meow\Attributes\Route;
+use Meow\Attributes\Router;
 use Meow\Container\ApplicationContainer;
 use Meow\Controllers\AppController;
 use Meow\Tools\Configuration;
@@ -12,7 +13,7 @@ class Application extends ApplicationContainer
 {
     protected array $applicationConfig;
 
-    /** @var Route[]|array $routes */
+    /** @var array<Route>|array $routes */
     protected array $routes;
 
     public function __construct()
@@ -59,7 +60,8 @@ class Application extends ApplicationContainer
             $instancedController = $this->resolve($controller);
             $reflectionClass = new \ReflectionClass($instancedController);
 
-            //get controller route
+            // get controller route
+            // Controller route must be set
             $controllerRouteAttribute = $reflectionClass->getAttributes(Route::class);
             if (!empty($controllerRouteAttribute)) {
                 /** @var Route $controllerRoute */
@@ -107,7 +109,9 @@ class Application extends ApplicationContainer
      */
     public function callController(string $routeName, array $request) : string
     {
-        $calledRoute = $this->routes[$routeName];
+        $router = new Router($this->routes);
+
+        $calledRoute = $router->matchFromUri($routeName);
         $methodName = $calledRoute->getMethod();
 
         // Instead of calling new instance from reflection class call Container's resolve

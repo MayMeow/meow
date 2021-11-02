@@ -14,9 +14,12 @@ class Route
     /** @var string $method Name of called method */
     protected string $method;
 
+    /** @var array<string> $parameters */
+    protected array $parameters;
+
     /**
      * Route Constructor
-     * 
+     *
      * @param string $routeName
      */
     public function __construct(string $routeName)
@@ -62,5 +65,46 @@ class Route
     public function getRouteName(): string
     {
         return $this->routeName;
+    }
+
+    public function match(string $routeName)
+    {
+        $regex = $this->getRouteName();
+        foreach ($this->getParametersNames() as $routeParam) {
+            $routeParamName = trim($routeParam, '{\}');
+            $regex = str_replace($routeParam, '(?P<' . $routeParamName . '>[^/]++)', $regex);
+        }
+
+        if (preg_match('#^' . $regex . '$#sD', self::trimPath($routeName), $matches)) {
+            $values = array_filter($matches, static function($key) {
+                return is_string($key);
+            }, ARRAY_FILTER_USE_KEY);
+
+            foreach ($values as $key => $value) {
+                $this->parameters[$key] = $value;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getParametersNames() : array
+    {
+        preg_match_all('/{[^}]*}/', $this->getRouteName(), $matches);
+        return reset($matches) ?? [];
+    }
+
+    public function hasParameters() : bool
+    {
+        return $this->getParametersNames() !== [];
+    }
+
+    public static function trimPath(string $path) : string
+    {
+        return '/' . rtrim(ltrim(trim($path), '/'), '/');
     }
 }

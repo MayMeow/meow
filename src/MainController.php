@@ -27,7 +27,7 @@ class MainController extends AppController
     #[NameAttribute("Emma")]
     #[AllowToAttribute('administrators')]
     #[AllowToAttribute('users')]
-    #[Route('/hello')]
+    #[Route('/hello/{name}')]
     #[DefaultRoute]
     public function sayHello(int $id) : string
     {
