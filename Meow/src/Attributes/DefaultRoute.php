@@ -3,7 +3,7 @@
 namespace Meow\Attributes;
 
 #[\Attribute]
-class DefaultRoute
+class DefaultRoute extends Route
 {
 
 }

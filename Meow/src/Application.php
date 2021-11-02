@@ -12,6 +12,7 @@ class Application extends ApplicationContainer
 {
     protected array $applicationConfig;
 
+    /** @var Route[]|array $routes */
     protected array $routes;
 
     public function __construct()
@@ -75,19 +76,19 @@ class Application extends ApplicationContainer
                         $methodRoute = $methodRouteAttribute[0]->newInstance();
                         $methodRouteName = $methodRoute->getRouteName();
 
-                        $routes[$controllerRouteName . $methodRouteName] = [
-                            'Controller' => $controller,
-                            'Method' => $method->getName()
-                        ];
+                        $methodRoute->setController($controller);
+                        $methodRoute->setMethod($method->getName());
+
+                        $routes[$controllerRouteName . $methodRouteName] = $methodRoute;
                     }
 
                     //Check for default route
                     $methodDefaultRouteAttribute = $method->getAttributes(DefaultRoute::class);
                     if (!empty($methodDefaultRouteAttribute)) {
-                        $routes['/'] = [
-                            'Controller' => $controller,
-                            'Method' => $method->getName()
-                        ];
+                        $route = new Route('/');
+                        $route->setMethod($method->getName());
+                        $route->setController($controller);
+                        $routes['/'] = $route;
                     }
                 }
             }
@@ -107,11 +108,11 @@ class Application extends ApplicationContainer
     public function callController(string $routeName, array $request) : string
     {
         $calledRoute = $this->routes[$routeName];
-        $methodName = $calledRoute['Method'];
+        $methodName = $calledRoute->getMethod();
 
         // Instead of calling new instance from reflection class call Container's resolve
         // This one will return new instance of controller but with resolved dependencies
-        $controller = $this->resolve($calledRoute['Controller']);
+        $controller = $this->resolve($calledRoute->getController());
 
         return $controller->$methodName($request['name']);
     }
