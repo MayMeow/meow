@@ -4,21 +4,41 @@ namespace May\AttributesTest;
 
 use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Attributes\NameAttribute;
-use Meow\Attributes\DefaultRoute;
-use Meow\Attributes\Route;
+use May\AttributesTest\Models\User;
+use May\AttributesTest\Repositories\UsersRepository;
+use May\AttributesTest\Services\ExampleServiceInterface;
 use Meow\Controllers\AppController;
+use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Prefix;
+use Meow\Routing\Attributes\Route;
 
-#[Route('/main')]
 class MainController extends AppController
 {
+    protected UsersRepository $repository;
+
+    protected ExampleServiceInterface $exampleService;
+
+    public function __construct(UsersRepository $repository, ExampleServiceInterface $exampleService)
+    {
+        $this->repository = $repository;
+        $this->exampleService = $exampleService;
+    }
+
+    #[Route('/')]
+    public function index() : string
+    {
+        return 'Hello World!';
+    }
+
     #[NameAttribute("Emma")]
     #[AllowToAttribute('administrators')]
     #[AllowToAttribute('users')]
-    #[Route('/hello')]
-    #[DefaultRoute]
-    public function sayHello(string $name) : string
+    #[Route('/hello/{id}/{surname}')]
+    public function sayHello() : string
     {
-        return "Hello $name";
+        $user = $this->repository->getUser($this->getRequest('id'))->getName();
+        $surname = $this->getRequest('surname');
+        return "Hello, $user, $surname";
     }
 
     #[Route("/good-bye")]

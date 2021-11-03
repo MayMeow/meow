@@ -1,7 +1,7 @@
 <?php
 
 require '../vendor/autoload.php';
-require '../config/app.php';
+require '../config/paths.php';
 
 $app = new \Meow\Application();
 
@@ -13,11 +13,9 @@ try {
     } else {
         $request_uri = $_SERVER['PATH_INFO'];
     }
-    $result = $app->callController($request_uri, [
-        'name' => 'May'
-    ]);
+    $result = $app->callController($request_uri);
 
-    var_dump($result);
+    echo json_encode($result);
 } catch (\May\AttributesTest\Exceptions\NotAllowedGroupException $exception) {
     var_dump($exception->getMessage());
 }
