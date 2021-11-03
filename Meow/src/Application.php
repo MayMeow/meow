@@ -87,6 +87,7 @@ class Application extends ApplicationContainer implements ContainerInterface
 
     /**
      * Register application services from configuration file
+     * Services are defined with Interfaces and must be added to service before you trying resolve them
      */
     protected function registerServices() : void
     {

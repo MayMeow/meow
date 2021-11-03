@@ -5,6 +5,7 @@ namespace Meow\Routing;
 use Meow\DI\ApplicationContainer;
 use Meow\DI\ContainerInterface;
 use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Prefix;
 use Meow\Routing\Attributes\Route;
 
 /**
@@ -37,6 +38,8 @@ class RoutingServiceProvider
         $router = new Router();
 
         foreach ($this->controllers as $controller) {
+            $controllerPrefixName = null;
+
             // check if class can be instantiated
             $reflectionClass = new \ReflectionClass($controller);
             if (!$reflectionClass->isInstantiable()) {
@@ -46,10 +49,13 @@ class RoutingServiceProvider
             // create new instance and resolve dependencies
             $instancedController = $this->container->resolve($controller);
             $reflectionClass = new \ReflectionClass($instancedController);
+            $controllerPrefixAttribute = $reflectionClass->getAttributes(Prefix::class);
 
-            // get controller route
-            // Controller route must be set
-            $controllerRouteAttribute = $reflectionClass->getAttributes(Route::class);
+            if (!empty($controllerPrefixAttribute)) {
+                /** @var Prefix $controllerPrefix */
+                $controllerPrefix = $controllerPrefixAttribute[0]->newInstance();
+                $controllerPrefixName = $controllerPrefix->getPrefixName();
+            }
 
             // get controller methods
             $methods = $reflectionClass->getMethods();
@@ -63,6 +69,10 @@ class RoutingServiceProvider
 
                     $methodRoute->setController($controller);
                     $methodRoute->setMethod($method->getName());
+
+                    if (!is_null($controllerPrefixName)) {
+                        $methodRoute->setRoutePrefix($controllerPrefixName);
+                    }
 
                     $router->addRoute($methodRoute);
                 }

@@ -9,6 +9,7 @@ use May\AttributesTest\Repositories\UsersRepository;
 use May\AttributesTest\Services\ExampleServiceInterface;
 use Meow\Controllers\AppController;
 use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Prefix;
 use Meow\Routing\Attributes\Route;
 
 class MainController extends AppController

@@ -2,6 +2,8 @@
 
 namespace Meow\Routing\Attributes;
 
+use Meow\Tools\Text;
+
 /**
  * Add prefix into route
  */
@@ -12,6 +14,12 @@ class Prefix
 
     public function __construct(string $prefixName)
     {
+        $text = new Text();
+
+        if (!$text->startWith($prefixName, '\/') || $text->endsWith($prefixName, '\/')) {
+            throw new \Exception('Prefix name must start with slash and must not end with slash');
+        }
+
         $this->prefixName = $prefixName;
     }
 

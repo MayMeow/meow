@@ -2,9 +2,14 @@
 
 namespace Meow\Routing\Attributes;
 
+use Meow\Tools\Text;
+
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class Route
 {
+    /** @var string  */
+    public string $routePrefix = '/';
+
     /** @var string Name of route */
     protected string $routeName;
 
@@ -20,10 +25,16 @@ class Route
     /**
      * Route Constructor
      *
-     * @param string $routeName
+     * @param string $routeName Each route name must start with slash and must not end with slash
      */
     public function __construct(string $routeName)
     {
+        $text = new Text();
+
+        if (!$text->startWith($routeName, '\/') || $text->endsWith($routeName, '\/')) {
+            throw new \Exception('Route name must start with slash and must not end with slash');
+        }
+
         $this->routeName = $routeName;
     }
 
@@ -64,6 +75,17 @@ class Route
      */
     public function getRouteName(): string
     {
+        // route /prefix/routeName
+        if ($this->routePrefix != '/' && $this->routeName != '/') {
+            return $this->routePrefix . $this->routeName;
+        }
+
+        // route /prefix
+        if ($this->routePrefix != '/' && $this->routeName = '/') {
+            return $this->routePrefix;
+        }
+
+        // route /routeName
         return $this->routeName;
     }
 
@@ -112,4 +134,13 @@ class Route
     {
         return '/' . rtrim(ltrim(trim($path), '/'), '/');
     }
+
+    /**
+     * @param string $routePrefix
+     */
+    public function setRoutePrefix(string $routePrefix): void
+    {
+        $this->routePrefix = $routePrefix;
+    }
+
 }
