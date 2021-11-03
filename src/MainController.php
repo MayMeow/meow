@@ -27,12 +27,12 @@ class MainController extends AppController
     #[NameAttribute("Emma")]
     #[AllowToAttribute('administrators')]
     #[AllowToAttribute('users')]
-    #[Route('/hello/{name}')]
-    #[DefaultRoute]
-    public function sayHello(int $id) : string
+    #[Route('/hello/{id}/{surname}')]
+    public function sayHello() : string
     {
-        $user = $this->repository->getUser($id)->getName();
-        return "Hello $user";
+        $user = $this->repository->getUser($this->getRequest('id'))->getName();
+        $surname = $this->getRequest('surname');
+        return "Hello, $user, $surname";
     }
 
     #[Route("/good-bye")]

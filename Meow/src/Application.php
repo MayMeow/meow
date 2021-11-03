@@ -3,13 +3,16 @@ declare(strict_types=1);
 
 namespace Meow;
 
+use Meow\Controllers\AppController;
 use Meow\DI\ApplicationContainer;
+use Meow\DI\ContainerInterface;
 use Meow\Routing\Attributes\DefaultRoute;
 use Meow\Routing\Attributes\Route;
 use Meow\Routing\Router;
+use Meow\Routing\RoutingServiceProvider;
 use Meow\Tools\Configuration;
 
-class Application extends ApplicationContainer
+class Application extends ApplicationContainer implements ContainerInterface
 {
     protected array $applicationConfig;
 
@@ -20,8 +23,6 @@ class Application extends ApplicationContainer
     {
         $this->configure();
         $this->registerServices();
-
-        $this->router = new Router();
 
         try {
             $this->registerRoutes();
@@ -47,80 +48,39 @@ class Application extends ApplicationContainer
      */
     protected function registerRoutes() : void
     {
-        //$routes = [];
-
         $controllers = Configuration::read('Controllers');
+        $router = new RoutingServiceProvider($controllers, $this);
 
-        foreach ($controllers as $controller) {
-            // check if class can be instantiated
-            $reflectionClass = new \ReflectionClass($controller);
-            if (!$reflectionClass->isInstantiable()) {
-                continue;
-            }
+        $this->router = $router->getRouter();
 
-            // create new instance and resolve dependencies
-            $instancedController = $this->resolve($controller);
-            $reflectionClass = new \ReflectionClass($instancedController);
-
-            // get controller route
-            // Controller route must be set
-            $controllerRouteAttribute = $reflectionClass->getAttributes(Route::class);
-            if (!empty($controllerRouteAttribute)) {
-                /** @var Route $controllerRoute */
-                $controllerRoute = $controllerRouteAttribute[0]->newInstance();
-                $controllerRouteName = $controllerRoute->getRouteName();
-
-                // get controller methods
-                $methods = $reflectionClass->getMethods();
-                foreach ($methods as $method) {
-                    $methodRouteAttribute = $method->getAttributes(Route::class);
-
-                    if (!empty($methodRouteAttribute)) {
-                        /** @var Route $methodRoute */
-                        $methodRoute = $methodRouteAttribute[0]->newInstance();
-                        $methodRouteName = $methodRoute->getRouteName();
-
-                        $methodRoute->setController($controller);
-                        $methodRoute->setMethod($method->getName());
-
-                        $this->router->addRoute($methodRoute);
-                    }
-
-                    //Check for default route
-                    $methodDefaultRouteAttribute = $method->getAttributes(DefaultRoute::class);
-                    if (!empty($methodDefaultRouteAttribute)) {
-                        $route = new Route('/');
-                        $route->setMethod($method->getName());
-                        $route->setController($controller);
-
-                        $this->router->addRoute($route);
-                    }
-                }
-            }
-        }
-
-        //$this->routes = $routes;
     }
 
     /**
      * Calling controller based on route
      *
      * @param string $routeName
-     * @param array $request
      * @return string
      * @throws \ReflectionException
      * @throws \Exception
      */
-    public function callController(string $routeName, array $request) : string
+    public function callController(string $routeName) : string
     {
         $calledRoute = $this->router->matchFromUri($routeName);
         $methodName = $calledRoute->getMethod();
 
         // Instead of calling new instance from reflection class call Container's resolve
         // This one will return new instance of controller but with resolved dependencies
+        /** @var AppController $controller */
         $controller = $this->resolve($calledRoute->getController());
 
-        return $controller->$methodName($request['name']);
+        if ($calledRoute->hasParameters()) {
+            $request = $calledRoute->getParameters();
+            // pass parameters from router to the controller
+            $controller->setRequest($request);
+            return $controller->$methodName();
+        }
+
+        return $controller->$methodName();
     }
 
     /**

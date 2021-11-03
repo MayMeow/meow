@@ -16,11 +16,15 @@ class UsersRepository
 
     public function getUser(int $id) : User
     {
+        $user = new User();
+
         $row = $this->databaseServiceProvider->getConnection()->fetch('SELECT * FROM Users WHERE id = ?', $id);
 
-        $user = new User();
-        $user->setName($row->name);
+        if (is_null($row)){
+            throw new \Exception('User not found');
+        }
 
+        $user->setName($row->name);
         return $user;
     }
 }

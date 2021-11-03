@@ -92,6 +92,7 @@ class ApplicationContainer
             $dependency = $parameter->getType() && !$parameter->getType()->isBuiltin()
                 ? new \ReflectionClass($parameter->getType()->getName())
                 : null;
+
             if($dependency == null) {
                 if ($parameter->isDefaultValueAvailable()) {
                     $dependencies[] = $parameter->getDefaultValue();

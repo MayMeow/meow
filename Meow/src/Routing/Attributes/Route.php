@@ -103,6 +103,11 @@ class Route
         return $this->getParametersNames() !== [];
     }
 
+    public function getParameters() : array
+    {
+        return $this->parameters;
+    }
+
     public static function trimPath(string $path) : string
     {
         return '/' . rtrim(ltrim(trim($path), '/'), '/');

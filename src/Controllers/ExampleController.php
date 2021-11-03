@@ -5,6 +5,7 @@ namespace May\AttributesTest\Controllers;
 use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Services\ExampleServiceInterface;
 use Meow\Controllers\AppController;
+use Meow\Routing\Attributes\DefaultRoute;
 use Meow\Routing\Attributes\Route;
 
 #[Route('/example')]
@@ -17,7 +18,7 @@ class ExampleController extends AppController
         $this->exampleService = $exampleService;
     }
 
-    #[Route('/index')]
+    #[Route('/')]
     #[AllowToAttribute('Administrators')]
     public function index()
     {

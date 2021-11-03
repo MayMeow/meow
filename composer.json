@@ -6,6 +6,11 @@
             "Meow\\": "Meow/src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Meow\\Tests\\": "Meow/tests/"
+        }
+    },
     "authors": [
         {
             "name": "May",
