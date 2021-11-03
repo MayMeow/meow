@@ -2,7 +2,7 @@
 
 namespace Meow\Routing\Attributes;
 
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_METHOD)]
 class Route
 {
     /** @var string Name of route */

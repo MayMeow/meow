@@ -11,7 +11,6 @@ use Meow\Controllers\AppController;
 use Meow\Routing\Attributes\DefaultRoute;
 use Meow\Routing\Attributes\Route;
 
-#[Route('/main')]
 class MainController extends AppController
 {
     protected UsersRepository $repository;
@@ -22,6 +21,12 @@ class MainController extends AppController
     {
         $this->repository = $repository;
         $this->exampleService = $exampleService;
+    }
+
+    #[Route('/')]
+    public function index() : string
+    {
+        return 'Hello World!';
     }
 
     #[NameAttribute("Emma")]

@@ -58,7 +58,7 @@ class Application extends ApplicationContainer implements ContainerInterface
     /**
      * Calling controller based on route
      *
-     * @param string $routeName
+     * @param string $routeName use server PATH_INFO variable on input
      * @return string
      * @throws \ReflectionException
      * @throws \Exception
@@ -73,6 +73,8 @@ class Application extends ApplicationContainer implements ContainerInterface
         /** @var AppController $controller */
         $controller = $this->resolve($calledRoute->getController());
 
+        // check if there are parameters
+        // if route contains parameters they must be provided in url
         if ($calledRoute->hasParameters()) {
             $request = $calledRoute->getParameters();
             // pass parameters from router to the controller

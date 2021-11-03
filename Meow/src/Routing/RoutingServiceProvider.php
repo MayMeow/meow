@@ -50,38 +50,34 @@ class RoutingServiceProvider
             // get controller route
             // Controller route must be set
             $controllerRouteAttribute = $reflectionClass->getAttributes(Route::class);
-            if (!empty($controllerRouteAttribute)) {
-                /** @var Route $controllerRoute */
-                $controllerRoute = $controllerRouteAttribute[0]->newInstance();
-                $controllerRouteName = $controllerRoute->getRouteName();
 
-                // get controller methods
-                $methods = $reflectionClass->getMethods();
-                foreach ($methods as $method) {
-                    $methodRouteAttribute = $method->getAttributes(Route::class);
+            // get controller methods
+            $methods = $reflectionClass->getMethods();
+            foreach ($methods as $method) {
+                $methodRouteAttribute = $method->getAttributes(Route::class);
 
-                    if (!empty($methodRouteAttribute)) {
-                        /** @var Route $methodRoute */
-                        $methodRoute = $methodRouteAttribute[0]->newInstance();
-                        $methodRouteName = $methodRoute->getRouteName();
+                if (!empty($methodRouteAttribute)) {
+                    /** @var Route $methodRoute */
+                    $methodRoute = $methodRouteAttribute[0]->newInstance();
+                    $methodRouteName = $methodRoute->getRouteName();
 
-                        $methodRoute->setController($controller);
-                        $methodRoute->setMethod($method->getName());
+                    $methodRoute->setController($controller);
+                    $methodRoute->setMethod($method->getName());
 
-                        $router->addRoute($methodRoute);
-                    }
+                    $router->addRoute($methodRoute);
+                }
 
-                    //Check for default route
-                    $methodDefaultRouteAttribute = $method->getAttributes(DefaultRoute::class);
-                    if (!empty($methodDefaultRouteAttribute)) {
-                        $route = new Route('/');
-                        $route->setMethod($method->getName());
-                        $route->setController($controller);
+                //Check for default route
+                $methodDefaultRouteAttribute = $method->getAttributes(DefaultRoute::class);
+                if (!empty($methodDefaultRouteAttribute)) {
+                    $route = new Route('/');
+                    $route->setMethod($method->getName());
+                    $route->setController($controller);
 
-                        $router->addRoute($route);
-                    }
+                    $router->addRoute($route);
                 }
             }
+
         }
 
         return $router;

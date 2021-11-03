@@ -2,6 +2,10 @@
 
 namespace Meow\Routing\Attributes;
 
+/**
+ * @deprecated use Route('/') instead
+ * @see Route
+ */
 #[\Attribute]
 class DefaultRoute extends Route
 {

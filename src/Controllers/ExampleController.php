@@ -6,9 +6,10 @@ use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Services\ExampleServiceInterface;
 use Meow\Controllers\AppController;
 use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Prefix;
 use Meow\Routing\Attributes\Route;
 
-#[Route('/example')]
+#[Prefix('/api')]
 class ExampleController extends AppController
 {
     protected ExampleServiceInterface $exampleService;
@@ -18,7 +19,7 @@ class ExampleController extends AppController
         $this->exampleService = $exampleService;
     }
 
-    #[Route('/')]
+    #[Route('/example')]
     #[AllowToAttribute('Administrators')]
     public function index()
     {
@@ -27,7 +28,7 @@ class ExampleController extends AppController
         return "This is index() from $className";
     }
 
-    #[Route('/example-service')]
+    #[Route('/example/example-service')]
     public function getServiceName()
     {
         return $this->exampleService->getServicename();
