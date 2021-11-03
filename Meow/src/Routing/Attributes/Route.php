@@ -1,6 +1,6 @@
 <?php
 
-namespace Meow\Attributes;
+namespace Meow\Routing\Attributes;
 
 #[\Attribute]
 class Route

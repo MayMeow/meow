@@ -7,9 +7,9 @@ use May\AttributesTest\Attributes\NameAttribute;
 use May\AttributesTest\Models\User;
 use May\AttributesTest\Repositories\UsersRepository;
 use May\AttributesTest\Services\ExampleServiceInterface;
-use Meow\Attributes\DefaultRoute;
-use Meow\Attributes\Route;
 use Meow\Controllers\AppController;
+use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Route;
 
 #[Route('/main')]
 class MainController extends AppController

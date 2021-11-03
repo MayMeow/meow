@@ -17,7 +17,7 @@ return [
         /**
          * Application services
          */
-        \Meow\Tools\DatabaseServiceProviderInterface::class => \Meow\Tools\DatabaseServiceProvider::class,
+        \Meow\Database\DatabaseServiceProviderInterface::class => \Meow\Database\DatabaseServiceProvider::class,
         /**
          * Other services
          */

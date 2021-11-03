@@ -1,12 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace Meow;
 
-use Meow\Attributes\DefaultRoute;
-use Meow\Attributes\Route;
-use Meow\Attributes\Router;
-use Meow\Container\ApplicationContainer;
-use Meow\Controllers\AppController;
+use Meow\DI\ApplicationContainer;
+use Meow\Routing\Attributes\DefaultRoute;
+use Meow\Routing\Attributes\Route;
+use Meow\Routing\Router;
 use Meow\Tools\Configuration;
 
 class Application extends ApplicationContainer

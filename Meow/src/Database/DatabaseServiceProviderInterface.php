@@ -1,6 +1,6 @@
 <?php
 
-namespace Meow\Tools;
+namespace Meow\Database;
 
 use Nette\Database\Connection;
 

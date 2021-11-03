@@ -1,6 +1,8 @@
 <?php
 
-namespace Meow\Attributes;
+namespace Meow\Routing;
+
+use Meow\Routing\Attributes\Route;
 
 class Router
 {

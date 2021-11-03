@@ -1,7 +1,10 @@
 <?php
 
-namespace Meow\Container;
+namespace Meow\DI;
 
+/**
+ * Dependency injection container
+ */
 class ApplicationContainer
 {
     /**

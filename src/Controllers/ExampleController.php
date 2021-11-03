@@ -4,8 +4,8 @@ namespace May\AttributesTest\Controllers;
 
 use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Services\ExampleServiceInterface;
-use Meow\Attributes\Route;
 use Meow\Controllers\AppController;
+use Meow\Routing\Attributes\Route;
 
 #[Route('/example')]
 class ExampleController extends AppController
