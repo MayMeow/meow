@@ -1,16 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Meow;
+namespace Meow\Core;
 
 use Meow\Controllers\AppController;
+use Meow\Core\Routing\RoutingServiceProvider as RoutingRoutingServiceProvider;
 use Meow\DI\ApplicationContainer;
+use Meow\Core\Tools\Configuration;
 use Meow\DI\ContainerInterface;
-use Meow\Routing\Attributes\DefaultRoute;
-use Meow\Routing\Attributes\Route;
 use Meow\Routing\Router;
-use Meow\Routing\RoutingServiceProvider;
-use Meow\Tools\Configuration;
 
 class Application extends ApplicationContainer implements ContainerInterface
 {
@@ -49,7 +47,7 @@ class Application extends ApplicationContainer implements ContainerInterface
     protected function registerRoutes() : void
     {
         $controllers = Configuration::read('Controllers');
-        $router = new RoutingServiceProvider($controllers, $this);
+        $router = new RoutingRoutingServiceProvider($controllers, $this);
 
         $this->router = $router->getRouter();
 
@@ -65,8 +63,8 @@ class Application extends ApplicationContainer implements ContainerInterface
      */
     public function callController(string $routeName) : string
     {
-        $calledRoute = $this->router->matchFromUri($routeName);
-        $methodName = $calledRoute->getMethod();
+        $calledRoute = $this->router->matchFromUrl($routeName);
+        $methodName = $calledRoute->getAction();
 
         // Instead of calling new instance from reflection class call Container's resolve
         // This one will return new instance of controller but with resolved dependencies

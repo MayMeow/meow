@@ -4,7 +4,7 @@ namespace May\AttributesTest\Controllers;
 
 use May\AttributesTest\Attributes\AllowToAttribute;
 use May\AttributesTest\Services\ExampleServiceInterface;
-use Meow\Controllers\AppController;
+use Meow\Core\Controllers\AppController;
 use Meow\Routing\Attributes\DefaultRoute;
 use Meow\Routing\Attributes\Prefix;
 use Meow\Routing\Attributes\Route;

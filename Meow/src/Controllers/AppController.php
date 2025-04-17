@@ -1,6 +1,6 @@
 <?php
 
-namespace Meow\Controllers;
+namespace Meow\Core\Controllers;
 
 class AppController
 {
