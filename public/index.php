@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 require '../config/paths.php';
 
-$app = new \Meow\Application();
+$app = new \Meow\Core\Application();
 
 //echo phpinfo();
 
