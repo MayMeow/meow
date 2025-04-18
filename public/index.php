@@ -1,9 +1,12 @@
 <?php
 
+use Meow\Core\Application;
+use Meow\Routing\Exceptions\NotFoundRouteException;
+
 require '../vendor/autoload.php';
 require '../config/paths.php';
 
-$app = new \Meow\Application();
+$app = new Application();
 
 //echo phpinfo();
 
@@ -17,5 +20,9 @@ try {
 
     echo json_encode($result);
 } catch (\May\AttributesTest\Exceptions\NotAllowedGroupException $exception) {
-    var_dump($exception->getMessage());
+    echo $exception->getMessage();
+} catch (NotFoundRouteException $e2) {
+    echo $e2->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
 }

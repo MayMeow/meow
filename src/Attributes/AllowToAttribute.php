@@ -7,6 +7,11 @@ class AllowToAttribute
 {
     protected string $securityGroup;
 
+    /**
+     * Undocumented function
+     *
+     * @param string $securityGroup
+     */
     public function __construct(string $securityGroup)
     {
         $this->securityGroup = $securityGroup;

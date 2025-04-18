@@ -1,8 +1,8 @@
 <?php
 
-namespace Meow\Database;
+namespace May\AttributesTest\Database;
 
-use Meow\Tools\Configuration;
+use Meow\Core\Tools\Configuration;
 use Nette\Database\Connection;
 
 class DatabaseServiceProvider implements DatabaseServiceProviderInterface
