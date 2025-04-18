@@ -1,6 +1,6 @@
 <?php
 
-namespace Meow\Core\Database;
+namespace Meow\AttributesTest\Database;
 
 use Meow\Core\Tools\Configuration;
 use Nette\Database\Connection;

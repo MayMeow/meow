@@ -11,6 +11,12 @@ class Configuration
         $this->configuration = include(CONFIG . 'application.php');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $configurationName
+     * @return array
+     */
     public static function read(string $configurationName) : array
     {
         $configuration = new self();

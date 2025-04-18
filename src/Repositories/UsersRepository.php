@@ -3,17 +3,28 @@
 namespace May\AttributesTest\Repositories;
 
 use May\AttributesTest\Models\User;
-use Meow\Core\Database\DatabaseServiceProviderInterface;
+use Meow\AttributesTest\Database\DatabaseServiceProviderInterface;
 
 class UsersRepository
 {
     protected DatabaseServiceProviderInterface $databaseServiceProvider;
 
+    /**
+     * UsersRepository constructor
+     *
+     * @param DatabaseServiceProviderInterface $databaseServiceProvider
+     */
     public function __construct(DatabaseServiceProviderInterface $databaseServiceProvider)
     {
         $this->databaseServiceProvider = $databaseServiceProvider;
     }
 
+    /**
+     * getUser function
+     *
+     * @param integer $id
+     * @return User
+     */
     public function getUser(int $id) : User
     {
         $user = new User();

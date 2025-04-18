@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Meow\Core;
 
 use Meow\Controllers\AppController;
-use Meow\Core\Routing\RoutingServiceProvider as RoutingRoutingServiceProvider;
 use Meow\DI\ApplicationContainer;
 use Meow\Core\Tools\Configuration;
 use Meow\DI\ContainerInterface;
@@ -47,10 +46,7 @@ class Application extends ApplicationContainer implements ContainerInterface
     protected function registerRoutes() : void
     {
         $controllers = Configuration::read('Controllers');
-        $router = new RoutingRoutingServiceProvider($controllers, $this);
-
-        $this->router = $router->getRouter();
-
+        $this->router = Router::getRouter($controllers);
     }
 
     /**
@@ -63,11 +59,13 @@ class Application extends ApplicationContainer implements ContainerInterface
      */
     public function callController(string $routeName) : string
     {
+        // get route from router
         $calledRoute = $this->router->matchFromUrl($routeName);
+        // get action method from route
         $methodName = $calledRoute->getAction();
 
-        // Instead of calling new instance from reflection class call Container's resolve
-        // This one will return new instance of controller but with resolved dependencies
+        // Resolve controller from DI container -> it rerutns inscance of controller
+        // and injects all dependencies
         /** @var AppController $controller */
         $controller = $this->resolve($calledRoute->getController());
 
@@ -75,8 +73,10 @@ class Application extends ApplicationContainer implements ContainerInterface
         // if route contains parameters they must be provided in url
         if ($calledRoute->hasParameters()) {
             $request = $calledRoute->getParameters();
-            // pass parameters from router to the controller
+
+            // pass requested parameters from router to the controller (called route)
             $controller->setRequest($request);
+
             return $controller->$methodName();
         }
 

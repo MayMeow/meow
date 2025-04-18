@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "meow/di",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/meowphp/di.git",
-                "reference": "29d6f988fae5583d1c626f6e51678d3d83261736"
+                "reference": "375618ebf3b5d0489145d126462ade348c63acbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/meowphp/di/zipball/29d6f988fae5583d1c626f6e51678d3d83261736",
-                "reference": "29d6f988fae5583d1c626f6e51678d3d83261736",
+                "url": "https://api.github.com/repos/meowphp/di/zipball/375618ebf3b5d0489145d126462ade348c63acbf",
+                "reference": "375618ebf3b5d0489145d126462ade348c63acbf",
                 "shasum": ""
             },
             "require": {
@@ -47,9 +47,9 @@
             "description": "Dependency injection container",
             "support": {
                 "issues": "https://github.com/meowphp/di/issues",
-                "source": "https://github.com/meowphp/di/tree/v0.1.0"
+                "source": "https://github.com/meowphp/di/tree/v0.1.1"
             },
-            "time": "2021-11-12T21:46:52+00:00"
+            "time": "2025-04-18T10:11:37+00:00"
         },
         {
             "name": "meowphp/routing",
@@ -339,12 +339,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "8.*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
