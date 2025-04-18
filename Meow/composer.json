@@ -1,0 +1,21 @@
+{
+    "name": "meow/core",
+    "description": "Meow core library",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Meow\\core\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "May Meow",
+            "email": "3164256+MayMeow@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "meow/di": "^0.1.1",
+        "meowphp/routing": "^0.1.0"
+    }
+}

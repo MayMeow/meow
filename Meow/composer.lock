@@ -1,0 +1,113 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "548d513223c3ec7da96b74f8ad94d05f",
+    "packages": [
+        {
+            "name": "meow/di",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meowphp/di.git",
+                "reference": "375618ebf3b5d0489145d126462ade348c63acbf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meowphp/di/zipball/375618ebf3b5d0489145d126462ade348c63acbf",
+                "reference": "375618ebf3b5d0489145d126462ade348c63acbf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "8.*"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Meow\\DI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "May Meow",
+                    "email": "emma@themaymeow.com"
+                }
+            ],
+            "description": "Dependency injection container",
+            "support": {
+                "issues": "https://github.com/meowphp/di/issues",
+                "source": "https://github.com/meowphp/di/tree/v0.1.1"
+            },
+            "time": "2025-04-18T10:11:37+00:00"
+        },
+        {
+            "name": "meowphp/routing",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meowphp/routing.git",
+                "reference": "3e37e5617f3d420b806afdc09946f061c1bfa024"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meowphp/routing/zipball/3e37e5617f3d420b806afdc09946f061c1bfa024",
+                "reference": "3e37e5617f3d420b806afdc09946f061c1bfa024",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.1",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "suggest": {
+                "maymeow/cake-attribute-routing": ">=v0.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Meow\\Routing\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "May Meow",
+                    "email": "hello@mitsuha.dev"
+                }
+            ],
+            "description": "Extendable router",
+            "homepage": "https://github.com/meowphp/routing",
+            "support": {
+                "issues": "https://github.com/meowphp/routing/issues",
+                "source": "https://github.com/meowphp/routing/tree/v0.1.0"
+            },
+            "time": "2021-11-11T20:53:44+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
+}
