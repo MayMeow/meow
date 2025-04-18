@@ -1,6 +1,6 @@
 # core
 
-__namespace:__ `meow\di`
+__namespace:__ `meow\core`
 
 Base for web applications. This is wrapper arround `meow\di` and `meow\router`. On top of it, it contains also functionality for reading configuration from arrays
 
