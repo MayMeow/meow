@@ -2,8 +2,8 @@
 
 namespace May\AttributesTest\Repositories;
 
+use May\AttributesTest\Database\DatabaseServiceProviderInterface;
 use May\AttributesTest\Models\User;
-use Meow\AttributesTest\Database\DatabaseServiceProviderInterface;
 
 class UsersRepository
 {

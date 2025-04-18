@@ -1,6 +1,6 @@
 <?php
 
-namespace Meow\AttributesTest\Database;
+namespace May\AttributesTest\Database;
 
 use Nette\Database\Connection;
 

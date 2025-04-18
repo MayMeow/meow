@@ -23,4 +23,6 @@ try {
     echo $exception->getMessage();
 } catch (NotFoundRouteException $e2) {
     echo $e2->getMessage();
+} catch (Exception $e) {
+    echo $e->getMessage();
 }

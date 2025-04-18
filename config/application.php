@@ -17,7 +17,7 @@ return [
         /**
          * Application services
          */
-        \Meow\AttributesTest\Database\DatabaseServiceProviderInterface::class => \Meow\AttributesTest\Database\DatabaseServiceProvider::class,
+        \May\AttributesTest\Database\DatabaseServiceProviderInterface::class => \May\AttributesTest\Database\DatabaseServiceProvider::class,
         /**
          * Other services
          */
