@@ -1,11 +1,12 @@
 <?php
 
+use Meow\Core\Application;
 use Meow\Routing\Exceptions\NotFoundRouteException;
 
 require '../vendor/autoload.php';
 require '../config/paths.php';
 
-$app = new \Meow\Core\Application();
+$app = new Application();
 
 //echo phpinfo();
 

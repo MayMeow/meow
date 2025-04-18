@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b361f2799c38cdf57bdec875e86f354c",
+    "content-hash": "379674ff0799fe12191f6c5d72ff8dce",
     "packages": [
+        {
+            "name": "meow/core",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meowphp/core.git",
+                "reference": "0153376cbef0b9f74ce28b73f4e3ccefceb0e23a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meowphp/core/zipball/0153376cbef0b9f74ce28b73f4e3ccefceb0e23a",
+                "reference": "0153376cbef0b9f74ce28b73f4e3ccefceb0e23a",
+                "shasum": ""
+            },
+            "require": {
+                "meow/di": "^0.1.1",
+                "meowphp/routing": "^0.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Meow\\Core\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "May Meow",
+                    "email": "3164256+MayMeow@users.noreply.github.com"
+                }
+            ],
+            "description": "Meow core library",
+            "support": {
+                "issues": "https://github.com/meowphp/core/issues",
+                "source": "https://github.com/meowphp/core/tree/v0.1.1"
+            },
+            "time": "2025-04-18T13:53:07+00:00"
+        },
         {
             "name": "meow/di",
             "version": "v0.1.1",
